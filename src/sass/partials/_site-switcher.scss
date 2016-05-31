@@ -1,0 +1,46 @@
+/*=======================
+ * Common SCSS - Header, Footer, etc
+ * GH '16  Theme 
+ * @author AY
+ *=======================*/
+
+ 
+// GovHack Site Switcher 
+.gh-ss {
+    
+    display: none;          // Don't display on mobile
+    background: $gh-darkgrey;
+    
+    @media screen and (min-width: 600px) {
+        display: block;
+    }
+    
+    // UL represents the menu container
+    ul {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        list-style: none;
+        justify-content: flex-end;
+        li {
+            a {
+                display: block;
+                padding: .45em 1em;
+                transition: all .2s ease;
+                border-bottom: none;
+                color: ghostwhite;
+            }
+            a:hover, a:active, a:focus {
+                background: $gh-grey;
+                color: white;
+            }
+        }
+        li:nth-child(odd) a {
+            border-top: 3px solid $gh-pink;
+        }
+        li:nth-child(even) a{
+            border-top: 3px solid $gh-blue;
+        }
+    }
+}
+
