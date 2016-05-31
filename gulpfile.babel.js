@@ -5,7 +5,10 @@ const gulp = require('gulp');
 
 // Define Sass and the autoprefixer
 const sass = require('gulp-sass');
-const prefix = require('gulp-autoprefixer');
+const prefix = require('gulp-autoprefixer');            // does css vendor prefixes
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
 
 // This is an object which defines paths for the styles.
 // Can add paths for javascript or images for example
@@ -16,7 +19,12 @@ var paths = {
 		src: './src/sass',
 		files: './src/sass/**/*.scss',
 		dest: './public/css'
-	}
+	},
+    
+    scripts: [{
+		files: './src/js/site-switcher/*.js',
+        dest: './public/js'
+    }]
 
 }
 
@@ -36,36 +44,75 @@ var displayError = (error) => {
 	console.error(errorString);
 }
 
+
+//
 // Setting up the sass task
+//
 gulp.task('sass', () => {
     // Taking the path from the above object
-	gulp.src(paths.styles.files)
     // Sass options - make the output compressed and add the source map
     // Also pull the include path from the paths object
-	.pipe(sass({
-		outputStyle: 'compressed',
-		sourceComments: 'map',
-		includePaths : [paths.styles.src]
-	}))
     // If there is an error, don't stop compiling but use the custom displayError function
-	.on('error', (err) => {
-		displayError(err);
-	})
     // Pass the compiled sass through the prefixer with defined 
-	.pipe(prefix(
-		'last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'
-	))
     // Funally put the compiled sass into a css file
-	.pipe(gulp.dest(paths.styles.dest))
+	gulp.src(paths.styles.files)
+        .pipe(sass({
+            outputStyle: 'expanded',
+            // outputStyle: 'compressed',
+            // sourceComments: 'map',
+            includePaths : [paths.styles.src]
+        }))
+        .pipe(prefix(
+            'last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'
+        ))
+        .pipe(gulp.dest(paths.styles.dest))
+        .on('error', (err) => {
+            displayError(err);
+        });
 });
+
+
+//
+// Setting up the js task
+//
+gulp.task('js', () => {
+    
+    if (paths.scripts instanceof Array){
+        paths.scripts.forEach(function(scriptFolder){
+            gulp.src(scriptFolder.files)
+                .pipe(rename({ suffix: '.min' }))
+                .pipe(uglify())
+                .pipe(gulp.dest(scriptFolder.dest))
+                .on('error', (err) => {
+                    displayError(err);
+                });
+        });
+    }
+    else {
+        gulp.src(paths.scripts.files)
+            .pipe(rename({ suffix: '.min' }))
+            .pipe(uglify())
+            .pipe(gulp.dest(paths.scripts.dest))
+            .on('error', (err) => {
+                displayError(err);
+            });
+    }
+
+});
+
+
+
 
 // This is the default task - which is run when `gulp` is run
 // The tasks passed in as an array are run before the tasks within the function
-gulp.task('default', ['sass'], () => { 
+gulp.task('default', ['sass', 'js'], () => { 
+
+    /** Deps will run once automagically **/
+    
     // Watch the files in the paths object, and when there is a change, fun the functions in the array
-	gulp.watch(paths.styles.files, ['sass'])
     // Also when there is a change, display what file was changed, only showing the path after the 'sass folder'
-	.on('change', (evt) => {
-		console.log(`[watcher] File  ${evt.path.replace(/.*(?=sass)/,'')} was ${evt.type} , compiling...`);
-	});
+	// gulp.watch(paths.styles.files, ['sass']).on('change', (evt) => {
+		// console.log(`[watcher] File  ${evt.path.replace(/.*(?=sass)/,'')} was ${evt.type} , compiling...`);
+	// });
+    
 });
