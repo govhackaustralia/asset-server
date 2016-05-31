@@ -3,7 +3,7 @@
 
 Welcome to simple asset server. It's meant for serving static assets like css, js, and potentially image sprites. A number of subprojects could eventually co-exist on this asset server.
 
-_Note:_  GovHack asset server should support both https:// and http:// happily depending on its load balancer's/reverse proxy's configuration
+> A working version of this should be available at [assets.govhack.org](https://assets.govhack.org)
 
 -------------
 
@@ -52,3 +52,5 @@ You could run this server using [PM2](https://github.com/Unitech/pm2). A utility
 ## Load balancing
 
 Maybe use a service like AWS ELB to reverse-proxy the node.js server. The `up.sh` script sets the node http-server to run on `:3010`
+
+_Note:_  GovHack asset server should support both https:// and http:// happily depending on its load balancer's/reverse proxy's configuration
