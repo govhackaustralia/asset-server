@@ -1,3 +1,4 @@
+![GovHack](http://gh16.alan.id.au/wp-content/themes/govhack-16/img/logo.png)
 # GovHack Asset Server
 
 Welcome to simple asset server. It's meant for serving static assets like css, js, and potentially image sprites.
@@ -16,10 +17,9 @@ This is a node.js project, please ensure you've got Node installed. Then clone t
 
 Install all the node deps
 
-    node install
+    npm install
 
 Since this is your first run, go ahead and build the scss outputs. This can simply be triggered via the gulpfile. It will dump the outputs into `/public/css`
-
     gulp 
 
 ## First run
