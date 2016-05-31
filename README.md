@@ -3,9 +3,11 @@
 
 Welcome to simple asset server. It's meant for serving static assets like css, js, and potentially image sprites. A number of subprojects could eventually co-exist on this asset server.
 
-_Note:_  GovHack asset server should support both https:// and http:// in a configuration that's 
+_Note:_  GovHack asset server should support both https:// and http:// happily depending on its load balancer's/reverse proxy's configuration
 
 -------------
+
+# Projects
 
 ## GovHack site switcher
 
@@ -24,6 +26,8 @@ Additionally, the GH Site Switcher uses [WordPress Dashicons](https://developer.
     
     
 -------------
+
+# Development and Deployment
 
 ## Installation
 
@@ -45,3 +49,6 @@ Then start the server. Recommended that you use [http-server](https://github.com
 
 You could run this server using [PM2](https://github.com/Unitech/pm2). A utility script is located in the root folder called `up.sh`
 
+## Load balancing
+
+Maybe use a service like AWS ELB to reverse-proxy the node.js server. The `up.sh` script sets the node http-server to run on `:3010`
