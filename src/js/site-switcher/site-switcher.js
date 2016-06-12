@@ -15,20 +15,30 @@ GH.siteSwitcher = (function(){
     }
     
     var tabs = [{
+        name: 'Website', 
+        href: 'http://www.govhack.org', 
+        pattern: '/www\.govhack\.org/',
+        fa: 'fa-global',
+        dashicons: 'dashicons-admin-site'
+    },
+    {
         name: 'Blog', 
         href: 'http://blog.govhack.org', 
+        pattern: '/blog\.govhack\.org/',
         fa: 'fa-rss-square',
         dashicons: 'dashicons-rss'
     },
     {
-        name: 'Competition Portal', 
+        name: 'Competition Portal',
         href: 'http://portal.govhack.org', 
+        pattern: '/portal\.govhack\.org/',
         fa: 'fa-bar-chart', 
         dashicons: 'dashicons-chart-bar'
     },
     {
         name: 'Participant Kit', 
         href: 'http://govhack-toolkit.readthedocs.io', 
+        pattern: '/readthedocs\.io/',
         fa: 'fa-sliders', 
         dashicons: 'dashicons-clipboard'
     }];
@@ -43,6 +53,11 @@ GH.siteSwitcher = (function(){
     navHtml += '<nav class="gh-ss"><ul>';
     
     tabs.forEach(function(tab){
+        // Don't add the current site to the toolbar
+        var re = new RegExp(tab.pattern);
+        if (re.test(document.location.href)){
+            return false;
+        }
         navHtml += '<li><a href="' + tab.href + '">';
         if (GH.opts.useDashicons){
             navHtml += '<span class="dashicons ' + tab.dashicons + '"></span> ';
@@ -65,6 +80,10 @@ GH.siteSwitcher = (function(){
     //===========
     
     function loadNavHtml(){
+        // Add a CSS hook
+        document.body.classList.add('with-gh-ss');
+        document.body.classList.add('block-padded');
+        // Put the gh-ss into the top of the body
         document.body.insertAdjacentHTML('afterbegin', navHtml);
     }
     

@@ -5,10 +5,11 @@
  *=======================*/
 
  
-// GovHack Site Switcher 
-
+// GovHack Site Switcher main 
 .gh-ss {
 
+    position: relative;
+    z-index: 6000;
     font-family: Montserrat, 'Open Sans', sans-serif;
     background: $gh-darkgrey;
     color: white;
@@ -26,8 +27,11 @@
         list-style: none;
         justify-content: flex-end;
         li {
+            margin: 0;
+            padding: 0;
             a {
                 display: block;
+                margin: 0;
                 padding: .45em 1em;
                 transition: all .2s ease;
                 border-bottom: none;
@@ -45,5 +49,35 @@
             border-top: 3px solid $gh-blue;
         }
     }
+    
 }
 
+// Body top spacer hook, or else the host may choose to position or style the gh-ss in another way
+body.with-gh-ss {
+    .gh-ss {
+        display: none;
+    }
+    @media screen and (min-width: 600px){
+        position: relative;
+        &.block-padded::before {
+            content: '';
+            display: block;
+            height: 40px;
+            background: $gh-darkgrey;
+        }
+        &:not(.block-padded)::before {
+            padding-top: 40px;
+        }
+        .gh-ss {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            &.is-fixed {
+                position: fixed;
+            }
+        }    
+    }
+}
+ 
