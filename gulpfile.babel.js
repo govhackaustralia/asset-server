@@ -7,6 +7,7 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const prefix = require('gulp-autoprefixer');            // does css vendor prefixes
 const uglify = require('gulp-uglify');
+const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 
@@ -80,8 +81,11 @@ gulp.task('js', () => {
     if (paths.scripts instanceof Array){
         paths.scripts.forEach(function(scriptFolder){
             gulp.src(scriptFolder.files)
+                .pipe(babel())
                 .pipe(rename({ suffix: '.min' }))
-                .pipe(uglify())
+                .pipe(uglify().on('error', (err) => {
+                    displayError(err);
+                }))
                 .pipe(gulp.dest(scriptFolder.dest))
                 .on('error', (err) => {
                     displayError(err);
@@ -90,8 +94,11 @@ gulp.task('js', () => {
     }
     else {
         gulp.src(paths.scripts.files)
+            .pipe(babel())
             .pipe(rename({ suffix: '.min' }))
-            .pipe(uglify())
+            .pipe(uglify().on('error', (err) => {
+                displayError(err);
+            }))
             .pipe(gulp.dest(paths.scripts.dest))
             .on('error', (err) => {
                 displayError(err);

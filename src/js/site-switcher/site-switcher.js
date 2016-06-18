@@ -1,5 +1,10 @@
 var GH = GH || {};
-GH.opts = GH.opts || { useDashicons: true, useFontAwesome: false };      // sensible defaults
+if (jQuery){
+    GH.opts = jQuery.extend({ useDashicons: true, useFontAwesome: false }, GH.opts || {});      // Extend defaults if jQ present
+}
+else {
+    GH.opts = GH.opts || { useDashicons: true, useFontAwesome: false };      // sensible defaults
+}
 
 GH.siteSwitcher = (function(){
     'use strict';
@@ -42,15 +47,21 @@ GH.siteSwitcher = (function(){
         fa: 'fa-sliders', 
         dashicons: 'dashicons-clipboard'
     }];
-        // {
-            // name: 'Hackerspace', 
-            // href: 'http://hackerspace.govhack.org', 
-            // fa: 'fa-comments', 
-            // dashicons: 'dashicons-megaphone'
-        // }
+
+
+    if (GH.hackerspace){
+        tabs.append({
+            name: 'Hackerspace',
+            href: 'http://hackerspace.govhack.org', 
+            fa: 'fa-comments', 
+            dashicons: 'dashicons-megaphone'
+        });
+    }
     
+    var navBaseClass = 'gh-ss';
+
     var navHtml = '<!-- GovHack Site Switcher navbar, loaded from assets.govhack.org -->';
-    navHtml += '<nav class="gh-ss"><ul>';
+    navHtml += `<nav class="${navBaseClass}"><ul>`;
     
     tabs.forEach(function(tab){
         // Don't add the current site to the toolbar
@@ -58,12 +69,12 @@ GH.siteSwitcher = (function(){
         if (re.test(document.location.href)){
             return false;
         }
-        navHtml += '<li><a href="' + tab.href + '">';
+        navHtml += `<li><a href="${tab.href}'">`;
         if (GH.opts.useDashicons){
-            navHtml += '<span class="dashicons ' + tab.dashicons + '"></span> ';
+            navHtml += `<span class="dashicons ${tab.dashicons}"></span>`;
         }
         if (GH.opts.useFontAwesome){
-            navHtml += '<span class="fa ' + tab.fa + '"></span> ';
+            navHtml += `<span class="fa ${tab.fa}"></span>`;
         }
         navHtml += tab.name + '</a></li>';
     });
@@ -85,6 +96,11 @@ GH.siteSwitcher = (function(){
         document.body.classList.add('block-padded');
         // Put the gh-ss into the top of the body
         document.body.insertAdjacentHTML('afterbegin', navHtml);
+
+        // Add extra classnames if the opts so demand
+        if (GH.opts.extraClassNames && GH.opts.extraClassNames instanceof Array){
+            document.querySelector(`.${navBaseClass}`).classList.add(GH.opts.extraClassNames.join());
+        }
     }
     
 }());
