@@ -23,6 +23,14 @@ Additionally, the GH Site Switcher uses [WordPress Dashicons](https://developer.
 
     var GH = {};
     GH.opts = { useDashicons: false, useFontAwesome: true };
+
+The full list of options is:
+
+    {
+        useDashicons: true | false,
+        useFontAwesome: true | false,
+        extraClassNames: ['extra', 'classname']
+    }
     
     
 -------------
