@@ -69,7 +69,7 @@ GH.siteSwitcher = (function(){
         if (re.test(document.location.href)){
             return false;
         }
-        navHtml += `<li><a href="${tab.href}'">`;
+        navHtml += `<li><a href="${tab.href}">`;
         if (GH.opts.useDashicons){
             navHtml += `<span class="dashicons ${tab.dashicons}"></span>`;
         }
