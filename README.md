@@ -16,8 +16,8 @@ Load the site switcher via a `<script>` tag, and it will bootstrap the rest:
     <script src="https://assets.govhack.org/js/site-switcher.min.js"></script>
 
 + The bar will attach itself to the top of the `<body>` tag. 
-+ It drags in a couple of CSS stylesheets via `<link>` tags.
-+ _Protip:_ If you want to bend the navbar to your will, style it using the `.gh-ss` class (which is on the `<nav>` element).
++ It drags in a couple of external CSS stylesheets via `<link>` tags.
++ _Protip:_ To apply custom CSS to the site switcher, add extra rules to the `.gh-ss` class (which is the class on the `<nav>` element).
 
 Additionally, the GH Site Switcher uses [WordPress Dashicons](https://developer.wordpress.org/resource/dashicons/) by default. if you want to force it to explicitly use either Dashicons or Font Awesome, then before including, create a `GH` variable in the window scope and give it some opts like such:
 
