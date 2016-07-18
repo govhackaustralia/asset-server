@@ -9,7 +9,7 @@ else {
 GH.siteSwitcher = (function(){
     'use strict';
     
-    // https://jakearchibald.com/2016/link-in-body/
+    /** https://jakearchibald.com/2016/link-in-body/ **/
     document.write('<link rel="stylesheet" href="https://assets.govhack.org/css/site-switcher.css">');
     
     if (GH.opts.useDashicons){
@@ -27,8 +27,8 @@ GH.siteSwitcher = (function(){
         dashicons: 'dashicons-admin-site'
     },
     {
-        name: 'Blog', 
-        href: 'http://blog.govhack.org', 
+        name: 'News', 
+        href: 'http://us5.campaign-archive1.com/home/?u=5d47f285eeb69b1126f0a3c41&id=227cbe7d1c',
         pattern: '/blog\.govhack\.org/',
         fa: 'fa-rss-square',
         dashicons: 'dashicons-rss'
@@ -88,7 +88,7 @@ GH.siteSwitcher = (function(){
         window.attachEvent('onload', loadNavHtml);
     }
     
-    //===========
+    //===================================================
     
     function loadNavHtml(){
         // Add a CSS hook
