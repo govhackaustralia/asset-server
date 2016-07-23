@@ -29,7 +29,8 @@
         position: fixed;
     }
     
-    body.ghss-hidden-mobile & {
+    body.ghss-hidden-mobile &,
+    body.ghss-mobile-hidden & {
         // Don't display on mobile
         display: none;
         @media screen and (min-width: 600px){

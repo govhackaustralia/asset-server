@@ -41,9 +41,9 @@ You can use the above technique to pre-set even more options. A number of option
 
 As an alternative to JavaScript option setting (for example if you don't want excess JS bootstrapping) then you can also define a couple of basic layout options as classnames in body. The main benefit of doing this is that it will be immediately visible as the HTML loads. (The JavaScript options will only come into effect at document.load). Classnames that can be added:
 
-`ghss-fixed`: CSS to make the siteswitcher `position: fixed` to the top (handy if you have other elements that are `position: fixed` to the top)  
-`ghss-block-padded`: CSS to add a spacer at the top of the body element, achieved by inserting a `display: block` pseudo-element.
-`ghss-mobile-hidden`: Hide it on mobile, viewport width <600px
++ `ghss-fixed`: CSS to make the siteswitcher `position: fixed` to the top (handy if you have other elements that are `position: fixed` to the top)  
++ `ghss-block-padded`: CSS to add a spacer at the top of the body element, achieved by inserting a `display: block` pseudo-element.
++ `ghss-mobile-hidden`: Hide it on mobile, viewport width <600px
     
 -------------
 

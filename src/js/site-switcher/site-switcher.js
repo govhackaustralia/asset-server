@@ -21,7 +21,7 @@ GH.siteSwitcher = (function(){
     }
     
     var tabs = [{
-        name: 'GovSlack', 
+        name: 'Slack', 
         href: 'http://slack.govhack.org', 
         pattern: '/slack\.govhack\.org/',
         fa: 'fa-slack',
@@ -30,7 +30,7 @@ GH.siteSwitcher = (function(){
         name: 'Website', 
         href: 'https://www.govhack.org', 
         pattern: '/www\.govhack\.org/',
-        fa: 'fa-global',
+        fa: 'fa-globe',
         dashicons: 'dashicons-admin-site'
     }, {
         name: 'News', 
