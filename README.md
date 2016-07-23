@@ -17,21 +17,35 @@ Load the site switcher via a `<script>` tag, and it will bootstrap the rest:
 
 + The bar will attach itself to the top of the `<body>` tag. 
 + It drags in a couple of external CSS stylesheets via `<link>` tags.
-+ _Protip:_ To apply custom CSS to the site switcher, add extra rules to the `.gh-ss` class (which is the class on the `<nav>` element).
 
-Additionally, the GH Site Switcher uses [WordPress Dashicons](https://developer.wordpress.org/resource/dashicons/) by default. if you want to force it to explicitly use either Dashicons or Font Awesome, then before including, create a `GH` variable in the window scope and give it some opts like such:
+### JavaScript options
+
+**Icon set**: The GH Site Switcher uses [WordPress Dashicons](https://developer.wordpress.org/resource/dashicons/) by default. if you want to force it to explicitly use either Dashicons or Font Awesome, then before including, create a `GH` variable in the window scope and give it some opts like such:
 
     var GH = {};
-    GH.opts = { useDashicons: false, useFontAwesome: true };
+    GH.opts = { 
+        useDashicons: false, 
+        useFontAwesome: true 
+    };
 
-The full list of options is:
+    
+You can use the above technique to pre-set even more options. A number of options that you can pre-set are:
 
     {
-        useDashicons: true | false,
-        useFontAwesome: true | false,
-        extraClassNames: ['extra', 'classname']
+        useDashicons: true | false,                     // default false
+        useFontAwesome: true | false,                   // default true
+        layoutStrategy: 'fixed' | 'block-padded',       // default 'block-padded'
+        mobileHidden: true | false                    // default false
     }
     
+    
+### Body classname options
+
+As an alternative to JavaScript option setting (for example if you don't want excess JS bootstrapping) then you can also define a couple of basic layout options as classnames in body. The main benefit of doing this is that it will be immediately visible as the HTML loads. (The JavaScript options will only come into effect at document.load). Classnames that can be added:
+
+`ghss-fixed`: CSS to make the siteswitcher `position: fixed` to the top (handy if you have other elements that are `position: fixed` to the top)  
+`ghss-block-padded`: CSS to add a spacer at the top of the body element, achieved by inserting a `display: block` pseudo-element.
+`ghss-mobile-hidden`: Hide it on mobile, viewport width <600px
     
 -------------
 

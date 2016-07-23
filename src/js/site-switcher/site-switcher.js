@@ -11,6 +11,7 @@ GH.siteSwitcher = (function(){
     
     /** https://jakearchibald.com/2016/link-in-body/ **/
     document.write('<link rel="stylesheet" href="https://assets.govhack.org/css/site-switcher.css">');
+    // document.write('<link rel="stylesheet" href="http://assets-dev.govhack.org/css/site-switcher.css">');
     
     if (GH.opts.useDashicons){
         document.write('<link rel="stylesheet" href="https://www.govhack.org/wp-includes/css/dashicons.min.css">');        
@@ -20,47 +21,52 @@ GH.siteSwitcher = (function(){
     }
     
     var tabs = [{
+        name: 'GovSlack', 
+        href: 'http://slack.govhack.org', 
+        pattern: '/slack\.govhack\.org/',
+        fa: 'fa-slack',
+        dashicons: 'dashicons-admin-comments'
+    }, {
         name: 'Website', 
-        href: 'http://www.govhack.org', 
+        href: 'https://www.govhack.org', 
         pattern: '/www\.govhack\.org/',
         fa: 'fa-global',
         dashicons: 'dashicons-admin-site'
-    },
-    {
+    }, {
         name: 'News', 
-        href: 'http://us5.campaign-archive1.com/home/?u=5d47f285eeb69b1126f0a3c41&id=227cbe7d1c',
-        pattern: '/blog\.govhack\.org/',
+        href: 'https://www.govhack.org/press/',
+        pattern: '//',
         fa: 'fa-rss-square',
         dashicons: 'dashicons-rss'
-    },
-    {
+    }, {
         name: 'Competition Portal',
         href: 'http://portal.govhack.org', 
         pattern: '/portal\.govhack\.org/',
         fa: 'fa-bar-chart', 
         dashicons: 'dashicons-chart-bar'
-    },
-    {
-        name: 'Participant Kit', 
-        href: 'http://govhack-toolkit.readthedocs.io', 
-        pattern: '/readthedocs\.io/',
+    }, {
+        name: 'Handbook', 
+        href: 'http://portal.govhack.org/handbook', 
+        pattern: '/portal\.govhack\.org\/handbook/',
         fa: 'fa-sliders', 
         dashicons: 'dashicons-clipboard'
     }];
 
 
-    if (GH.hackerspace){
+    if ((+new Date) > 1469782800000){
+        // Activate the hackerspace tab button
         tabs.append({
             name: 'Hackerspace',
-            href: 'http://hackerspace.govhack.org', 
-            fa: 'fa-comments', 
+            href: 'https://2016.hackerspace.govhack.org', 
+            fa: 'fa-drupal', 
             dashicons: 'dashicons-megaphone'
         });
     }
     
+    console.log('GovHack Site Switcher navbar, loaded from assets.govhack.org');
+    
     var navBaseClass = 'gh-ss';
-
-    var navHtml = '<!-- GovHack Site Switcher navbar, loaded from assets.govhack.org -->';
+    var navHtml = '';
     navHtml += `<nav class="${navBaseClass}"><ul>`;
     
     tabs.forEach(function(tab){
@@ -80,6 +86,20 @@ GH.siteSwitcher = (function(){
     });
         
     navHtml += '</ul></nav>';
+        
+        
+    // WIP WIP WIP
+    // Check localStorage for a cached version
+    // if (window.localStorage && !window.location.search){
+        // let local = window.localStorage;
+        // if (local.getItem('ghLastCachedDate')){
+            // let lastCachedDate = parseInt(local.getItem('ghLastCachedDate'));
+            // if ((+new Date) - lastCachedDate > (48 * 60 * 60* 1000)){  
+                
+            // }
+        // }
+    // }
+    
     
     if (window.addEventListener){
         window.addEventListener('load', loadNavHtml, false);      // NB **not** 'onload'
@@ -91,16 +111,26 @@ GH.siteSwitcher = (function(){
     //===================================================
     
     function loadNavHtml(){
-        // Add a CSS hook
-        document.body.classList.add('with-gh-ss');
-        document.body.classList.add('block-padded');
-        // Put the gh-ss into the top of the body
-        document.body.insertAdjacentHTML('afterbegin', navHtml);
-
-        // Add extra classnames if the opts so demand
-        if (GH.opts.extraClassNames && GH.opts.extraClassNames instanceof Array){
-            document.querySelector(`.${navBaseClass}`).classList.add(GH.opts.extraClassNames.join());
+        
+        // Add CSS hooks as defined in options
+        if (GH.opts.mobileHidden){
+            document.body.classList.add('ghss-mobile-hidden');            
         }
+        if (GH.opts.layoutStrategy){
+            switch (GH.opts.layoutStrategy){
+                case 'block-padded':
+                    document.body.classList.add('ghss-block-padded');
+                    break;
+                case 'fixed':
+                    document.body.classList.add('ghss-fixed');
+                    break;
+            }
+        }
+        
+        // Put the ghss into the top of the body
+        document.body.classList.add('ghss-loaded');
+        document.body.insertAdjacentHTML('afterbegin', navHtml);
+        
     }
     
 }());

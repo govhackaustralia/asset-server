@@ -14,6 +14,32 @@
     background: $gh-darkgrey;
     color: white;
     
+
+    // =============================
+    // Modifiers are:
+    // ghss-block-padded; this whacks a pseudo-element into body which does the padding
+    // ghss-fixed; this simply affixes stuff
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    
+    body.ghss-fixed & {
+        position: fixed;
+    }
+    
+    body.ghss-hidden-mobile & {
+        // Don't display on mobile
+        display: none;
+        @media screen and (min-width: 600px){
+            display: block;
+        }
+    }
+    
+    // End modifiers 
+    // =============================
+    
     a {
         text-decoration: none;
         border-bottom: none;
@@ -52,32 +78,27 @@
     
 }
 
-// Body top spacer hook, or else the host may choose to position or style the gh-ss in another way
-body.with-gh-ss {
-    .gh-ss {
-        display: none;
-    }
+body {
     @media screen and (min-width: 600px){
-        position: relative;
-        &.block-padded::before {
-            content: '';
+
+        &::before {
             display: block;
+            content: '';
             height: 40px;
             background: $gh-darkgrey;
         }
-        &:not(.block-padded)::before {
+        
+        &.ghss-fixed {
             padding-top: 40px;
-        }
-        .gh-ss {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            &.is-fixed {
+            &::before {
                 position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
             }
-        }    
+        }
+        
     }
 }
+
  
