@@ -1,9 +1,7 @@
-![GovHack](http://gh16.alan.id.au/wp-content/themes/govhack-16/img/logo.png)
+![GovHack](https://assets.govhack.org/img/logo/govhack-original-transp.png)
 # GovHack Asset Server
 
 Welcome to simple asset server. It's meant for serving __SHARED__, static assets like css, js, and potentially image sprites. A number of subprojects could eventually co-exist on this asset server.
-
-> A working version of this should be available at [assets.govhack.org](https://assets.govhack.org)
 
 -------------
 
